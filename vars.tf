@@ -49,3 +49,7 @@ variable "master_username" {
 variable "master_password" {
   description = "Password for the master user. Must be at least 8 characters."
 }
+
+variable "skip_final_snapshot" {
+  description = "Boolean flag to skip the final snapshot when deleting the Aurora SQL cluster. Set to true to skip, false to create a snapshot."
+}

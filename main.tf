@@ -10,7 +10,7 @@ resource "aws_db_subnet_group" "main" {
 resource "aws_db_parameter_group" "main" {
   name   = "${local.name_prefix}-pg"
   family = var.engine_family
-  tags        = merge(local.tags, { Name = "${local.name_prefix}-pg" })
+  tags   = merge(local.tags, { Name = "${local.name_prefix}-pg" })
 }
 
 
@@ -46,15 +46,19 @@ resource "aws_vpc_security_group_egress_rule" "egress" {
 
 # Aurora SQL Cluster
 resource "aws_rds_cluster" "main" {
-  cluster_identifier      = "${local.name_prefix}-cluster"
-  engine                  = var.engine
-  engine_version          = var.engine_version
-  db_subnet_group_name    = aws_db_subnet_group.main.name
-  database_name           = var.database_name
-  master_username         = var.master_username
-  master_password         = var.master_password
-  backup_retention_period = var.backup_retention_period
-  preferred_backup_window = var.preferred_backup_window
+  cluster_identifier               = "${local.name_prefix}-cluster"
+  engine                           = var.engine
+  engine_version                   = var.engine_version
+  db_subnet_group_name             = aws_db_subnet_group.main.name
+  database_name                    = var.database_name
+  master_username                  = var.master_username
+  master_password                  = var.master_password
+  backup_retention_period          = var.backup_retention_period
+  preferred_backup_window          = var.preferred_backup_window
+  db_instance_parameter_group_name = aws_db_parameter_group.main.name
+  vpc_security_group_ids           = [aws_security_group.aurora_sg.id]
+  skip_final_snapshot              = var.skip_final_snapshot
+  tags                             = merge(local.tags, { Name = "${local.name_prefix}-cluster" })
 }
 
 
