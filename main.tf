@@ -1,16 +1,16 @@
 # Aurora SQL DB subnet group.
 resource "aws_db_subnet_group" "main" {
-  name       = "${local.name_prefix}-${var.rds_type}-subnet-group"
+  name       = "${local.name_prefix}-subnet-group"
   subnet_ids = var.db_subnets
-  tags       = merge(var.tags, { Name = "${local.name_prefix}-${var.rds_type}-subnet-group" })
+  tags       = merge(var.tags, { Name = "${local.name_prefix}-subnet-group" })
 }
 
 
 # Parameter Group
 resource "aws_db_parameter_group" "main" {
-  name        = "${local.name_prefix}-${var.rds_type}-pg"
+  name        = "${local.name_prefix}-pg"
   family      = var.engine_family
-  description = "${local.name_prefix}-${var.rds_type}-pg"
+  description = "${local.name_prefix}-pg"
   tags        = merge(local.tags, { Name = "${local.name_prefix}-pg" })
 }
 
