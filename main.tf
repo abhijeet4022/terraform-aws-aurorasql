@@ -15,7 +15,7 @@ resource "aws_db_parameter_group" "main" {
 }
 
 
-# SG for Aurora SQl.
+# SG for Aurora SQL.
 resource "aws_security_group" "aurora_sg" {
   name        = "${local.name_prefix}-sg"
   description = "${local.name_prefix}-sg"
@@ -24,7 +24,7 @@ resource "aws_security_group" "aurora_sg" {
 }
 
 
-# Ingress rule for DocDB SG.
+# Ingress rule for Aurora SQL.
 resource "aws_vpc_security_group_ingress_rule" "ingress" {
   for_each          = toset(var.app_subnets_cidr) # Convert list to a set to iterate over each CIDR
   description       = "Allow inbound TCP on Aurora SQL port 27017 from App Subnets"
@@ -37,7 +37,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress" {
 }
 
 
-# Egress rule for DocDB SG.
+# Egress rule for Aurora SQL.
 resource "aws_vpc_security_group_egress_rule" "egress" {
   security_group_id = aws_security_group.aurora_sg.id
   cidr_ipv4         = "0.0.0.0/0"
