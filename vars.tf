@@ -37,3 +37,15 @@ variable "backup_retention_period" {
 variable "preferred_backup_window" {
   description = "Preferred daily backup window for the Aurora SQL cluster (e.g., 07:00-09:00)."
 }
+
+variable "database_name" {
+  description = "The name of the default database to be created in the Aurora SQL cluster."
+}
+
+variable "master_username" {
+  description = "Username for the master user of the Aurora SQL database."
+}
+
+variable "master_password" {
+  description = "Password for the master user. Must be at least 8 characters."
+}

@@ -50,10 +50,11 @@ resource "aws_rds_cluster" "main" {
   engine                  = var.engine
   engine_version          = var.engine_version
   db_subnet_group_name    = aws_db_subnet_group.main.name
-  database_name           = "mydb"
-  master_username         = "foo"
-  master_password         = "must_be_eight_characters"
+  database_name           = var.database_name
+  master_username         = var.master_username
+  master_password         = var.master_password
   backup_retention_period = var.backup_retention_period
   preferred_backup_window = var.preferred_backup_window
 }
+
 
