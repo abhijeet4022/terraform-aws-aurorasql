@@ -10,8 +10,6 @@ resource "aws_db_subnet_group" "main" {
 resource "aws_db_parameter_group" "main" {
   name        = "${local.name_prefix}-pg"
   family      = var.engine_family
-  description = "${local.name_prefix}-pg"
-  tags        = merge(local.tags, { Name = "${local.name_prefix}-pg" })
 }
 
 
@@ -42,4 +40,18 @@ resource "aws_vpc_security_group_egress_rule" "egress" {
   security_group_id = aws_security_group.aurora_sg.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
+}
+
+
+# Aurora SQL Cluster
+resource "aws_rds_cluster" "default" {
+  cluster_identifier      = "aurora-cluster-demo"
+  engine                  = "aurora-mysql"
+  engine_version          = "5.7.mysql_aurora.2.03.2"
+  availability_zones      = ["us-west-2a", "us-west-2b", "us-west-2c"]
+  database_name           = "mydb"
+  master_username         = "foo"
+  master_password         = "must_be_eight_characters"
+  backup_retention_period = 5
+  preferred_backup_window = "07:00-09:00"
 }
