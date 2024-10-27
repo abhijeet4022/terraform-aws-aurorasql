@@ -26,7 +26,7 @@ resource "aws_security_group" "aurora_sg" {
 # Ingress rule for Aurora SQL.
 resource "aws_vpc_security_group_ingress_rule" "ingress" {
   for_each          = toset(var.app_subnets_cidr) # Convert list to a set to iterate over each CIDR
-  description       = "Allow inbound TCP on Aurora SQL port 27017 from App Subnets"
+  description       = "Allow inbound TCP on Aurora SQL port ${var.port} from App Subnets"
   security_group_id = aws_security_group.aurora_sg.id
   cidr_ipv4         = each.value # Each CIDR block as a separate rule
   from_port         = var.port
