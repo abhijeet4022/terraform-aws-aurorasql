@@ -53,3 +53,12 @@ variable "master_password" {
 variable "skip_final_snapshot" {
   description = "Boolean flag to skip the final snapshot when deleting the Aurora SQL cluster. Set to true to skip, false to create a snapshot."
 }
+
+# Cluster Instance
+variable "instance_count" {
+  description = "Number of Aurora SQL cluster instances."
+}
+
+variable "instance_class" {
+  description = "Instance type for Aurora SQL instances (e.g., db.r5.large)."
+}
