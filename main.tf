@@ -63,10 +63,11 @@ resource "aws_rds_cluster" "main" {
 
 # Create cluster instance
 resource "aws_rds_cluster_instance" "cluster_instances" {
-  count              = var.instance_count
-  identifier         = "${local.name_prefix}-cluster-instance-${count.index + 1}"
-  cluster_identifier = aws_rds_cluster.main.id
-  instance_class     = var.instance_class
-  engine             = aws_rds_cluster.main.engine
-  engine_version     = aws_rds_cluster.main.engine_version
+  count                      = var.instance_count
+  identifier                 = "${local.name_prefix}-cluster-instance-${count.index + 1}"
+  cluster_identifier         = aws_rds_cluster.main.id
+  instance_class             = var.instance_class
+  engine                     = aws_rds_cluster.main.engine
+  engine_version             = aws_rds_cluster.main.engine_version
+  auto_minor_version_upgrade = false
 }
