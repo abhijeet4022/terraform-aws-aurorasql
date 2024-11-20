@@ -62,3 +62,7 @@ variable "instance_count" {
 variable "instance_class" {
   description = "Instance type for Aurora SQL instances (e.g., db.r5.large)."
 }
+
+variable "kms_key_id" {
+  description = "Provide the KMS KEY ARN"
+}
